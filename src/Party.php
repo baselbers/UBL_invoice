@@ -13,6 +13,9 @@ use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
 
 class Party implements XmlSerializable{
+	/**
+	 * @var string
+	 */
     private $name;
     /**
      * @var Address
@@ -28,19 +31,14 @@ class Party implements XmlSerializable{
     private $contact;
 
 	/**
-	 * @var string
+	 * @var PartyTaxScheme
 	 */
-    private $companyId;
+    private $partyTaxScheme;
 
 	/**
-	 * @var TaxScheme
+	 * @var PartyLegalEntity
 	 */
-    private $taxScheme;
-
-	/**
-	 * @var LegalEntity
-	 */
-    private $legalEntity;
+    private $partyLegalEntity;
 
     /**
      * @return mixed
@@ -75,47 +73,33 @@ class Party implements XmlSerializable{
     }
 
 	/**
-	 * @return string
-	 */
-    public function getCompanyId() {
-    	return $this->companyId;
-    }
-
-	/**
-	 * @param string $companyId
-	 */
-	public function setCompanyId($companyId) {
-    	$this->companyId = $companyId;
-	}
-
-	/**
-	 * @param TaxScheme $taxScheme.
+	 * @param PartyTaxScheme $partyTaxScheme.
 	 * @return mixed
 	 */
-    public function getTaxScheme() {
-    	return $this->taxScheme;
+    public function getPartyTaxScheme() {
+    	return $this->partyTaxScheme;
     }
 
 	/**
-	 * @param TaxScheme $taxScheme
+	 * @param PartyTaxScheme $partyTaxScheme
 	 */
-    public function setTaxScheme($taxScheme) {
-    	$this->taxScheme = $taxScheme;
+    public function setPartyTaxScheme($partyTaxScheme) {
+    	$this->partyTaxScheme = $partyTaxScheme;
     }
 
 	/**
-	 * @return LegalEntity
+	 * @return PartyLegalEntity
 	 */
-    public function getLegalEntity() {
-    	return $this->legalEntity;
+    public function getPartyLegalEntity() {
+    	return $this->partyLegalEntity;
     }
 
 	/**
 	 * @param $legalEntity
 	 * @return Party
 	 */
-    public function setLegalEntity($legalEntity) {
-    	$this->legalEntity = $legalEntity;
+    public function setPartyLegalEntity($partyLegalEntity) {
+    	$this->partyLegalEntity = $partyLegalEntity;
     	return $this;
     }
 
@@ -159,12 +143,9 @@ class Party implements XmlSerializable{
             Schema::CAC.'PostalAddress' => $this->postalAddress
         ]);
 
-	    if($this->taxScheme){
+	    if($this->partyTaxScheme){
 		    $writer->write([
-			    Schema::CAC.'PartyTaxScheme' => [
-				    Schema::CBC.'CompanyID' => $this->companyId,
-				    Schema::CAC.'TaxScheme' => [Schema::CAC.'ID' => $this->taxScheme]
-			    ],
+			    Schema::CAC.'PartyTaxScheme' => $this->partyTaxScheme
 		    ]);
 	    }
 

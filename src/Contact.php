@@ -13,9 +13,19 @@ use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
 
 class Contact implements XmlSerializable {
+	private $name;
     private $telephone;
     private $telefax;
     private $electronicMail;
+
+    public function getName() {
+    	return $this->name;
+    }
+
+    public function setName($name) {
+    	$this->name = $name;
+    	return $this;
+    }
 
     /**
      * @return mixed
@@ -73,6 +83,12 @@ class Contact implements XmlSerializable {
      */
     function xmlSerialize(Writer $writer) {
         // TODO: Implement xmlSerialize() method.
+	    if($this->name !== null) {
+		    $writer->write([
+			    Schema::CBC . 'Name' => $this->name
+		    ]);
+	    }
+
         if($this->telephone !== null) {
             $writer->write([
                 Schema::CBC . 'Telephone' => $this->telephone

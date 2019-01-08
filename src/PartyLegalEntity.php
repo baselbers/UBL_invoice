@@ -11,7 +11,7 @@ namespace CleverIt\UBL\Invoice;
 use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
 
-class LegalEntity implements XmlSerializable {
+class PartyLegalEntity implements XmlSerializable {
 
 	/**
 	 * @var string

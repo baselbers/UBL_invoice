@@ -39,6 +39,21 @@ class Invoice implements XmlSerializable{
      */
     private $additionalDocumentReference;
 
+	/**
+	 * @var OrderReference
+	 */
+    private $orderReference;
+
+	/**
+	 * @var string
+	 */
+    private $documentCurrencyCode;
+
+	/**
+	 * @var string
+	 */
+    private $buyerReference;
+
     /**
      * @var Party
      */
@@ -114,6 +129,7 @@ class Invoice implements XmlSerializable{
             $cbc . 'CopyIndicator' => $this->copyIndicator ? 'true' : 'false',
             $cbc . 'IssueDate' => $this->issueDate->format('Y-m-d'),
             $cbc . 'InvoiceTypeCode' => $this->invoiceTypeCode,
+            $cac . 'OrderReference' => $this->orderReference,
             $cac . 'AdditionalDocumentReference' => $this->additionalDocumentReference,
             $cac . 'AccountingSupplierParty' => [$cac . "Party" => $this->accountingSupplierParty],
             $cac . 'AccountingCustomerParty' => [$cac . "Party" => $this->accountingCustomerParty],
@@ -222,6 +238,54 @@ class Invoice implements XmlSerializable{
      */
     public function setAdditionalDocumentReference($additionalDocumentReference) {
         $this->additionalDocumentReference = $additionalDocumentReference;
+        return $this;
+    }
+
+	/**
+	 * @return OrderReference
+	 */
+	public function getOrderReference() {
+		return $this->orderReference;
+	}
+
+	/**
+	 * @param OrderReference $orderReference
+	 * @return OrderReference
+	 */
+	public function setOrderReference($orderReference) {
+		$this->orderReference = $orderReference;
+		return $this;
+	}
+
+    /**
+     * @return string
+     */
+    public function getDocumentCurrencyCode() {
+        return $this->documentCurrencyCode;
+    }
+
+    /**
+     * @param string $documentCurrencyCode
+     * @return Invoice
+     */
+    public function setDocumentCurrencyCode($documentCurrencyCode) {
+        $this->documentCurrencyCode = $documentCurrencyCode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBuyerReference() {
+        return $this->buyerReference;
+    }
+
+    /**
+     * @param string $buyerReference
+     * @return Invoice
+     */
+    public function setBuyerReference($buyerReference) {
+        $this->buyerReference = $buyerReference;
         return $this;
     }
 

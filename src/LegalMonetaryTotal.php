@@ -17,6 +17,7 @@ class LegalMonetaryTotal implements XmlSerializable {
     private $taxExclusiveAmount;
     private $taxInclusiveAmount;
     private $allowanceTotalAmount = 0;
+    private $chargeTotalAmount = 0;
     private $payableAmount;
 
     /**
@@ -82,6 +83,22 @@ class LegalMonetaryTotal implements XmlSerializable {
         $this->allowanceTotalAmount = $allowanceTotalAmount;
         return $this;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getChargeTotalAmount() {
+		return $this->chargeTotalAmount;
+	}
+
+	/**
+	 * @param mixed $allowanceTotalAmount
+	 * @return LegalMonetaryTotal
+	 */
+	public function setChargeTotalAmount($chargeTotalAmount) {
+		$this->chargeTotalAmount = $chargeTotalAmount;
+		return $this;
+	}
 
     /**
      * @return mixed

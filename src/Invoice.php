@@ -13,7 +13,7 @@ use Sabre\Xml\Writer;
 use Sabre\Xml\XmlSerializable;
 
 class Invoice implements XmlSerializable{
-    private $UBLVersionID = '2.0';
+    private $UBLVersionID = '2.1';
 
     /**
      * @var int
@@ -124,21 +124,15 @@ class Invoice implements XmlSerializable{
 
         $writer->write([
             $cbc . 'UBLVersionID' => $this->UBLVersionID,
-            $cbc . 'CustomizationID' => 'OIOUBL-2.01',
             $cbc . 'ID' => $this->id,
             $cbc . 'CopyIndicator' => $this->copyIndicator ? 'true' : 'false',
             $cbc . 'IssueDate' => $this->issueDate->format('Y-m-d'),
             $cbc . 'InvoiceTypeCode' => $this->invoiceTypeCode,
+            $cac . 'OrderReference' => $this->orderReference,
             $cac . 'AdditionalDocumentReference' => $this->additionalDocumentReference,
             $cac . 'AccountingSupplierParty' => [$cac . "Party" => $this->accountingSupplierParty],
             $cac . 'AccountingCustomerParty' => [$cac . "Party" => $this->accountingCustomerParty],
         ]);
-
-        if ( $this->orderReference != null) {
-	        $writer->write([
-		        $cac . 'OrderReference' => $this->orderReference,
-	        ]);
-        }
 
         if ($this->allowanceCharges != null) {
             foreach ($this->allowanceCharges as $invoiceLine) {

@@ -15,6 +15,7 @@ use Sabre\Xml\XmlSerializable;
 class OrderReference implements XmlSerializable {
 	private $id;
 	private $salesOrderID;
+	private $issueDate;
 
 	/**
 	 * @return mixed
@@ -52,10 +53,29 @@ class OrderReference implements XmlSerializable {
 		return $this;
 	}
 
+	/**
+	 * @return \DateTime
+	 */
+	public function getIssueDate() {
+		return $this->issueDate;
+	}
+
+	/**
+	 * @param \DateTime $issueDate
+	 *
+	 * @return Invoice
+	 */
+	public function setIssueDate( $issueDate ) {
+		$this->issueDate = $issueDate;
+
+		return $this;
+	}
+
 	function xmlSerialize( Writer $writer ) {
 		$writer->write( [
 			Schema::CBC . 'ID'           => $this->id,
 			Schema::CBC . 'SalesOrderID' => $this->salesOrderID,
+			Schema::CBC . 'IssueDate'    => $this->issueDate->format( 'Y-m-d' ),
 		] );
 	}
 }

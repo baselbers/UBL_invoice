@@ -29,6 +29,10 @@ class InvoiceLine implements XmlSerializable {
      * @var Price
      */
     private $price;
+	/**
+	 * @var string;
+	 */
+	private $accountingCostCode;
 
     /**
      * @return mixed
@@ -142,6 +146,22 @@ class InvoiceLine implements XmlSerializable {
         return $this;
     }
 
+	/**
+	 * @return mixed
+	 */
+	public function getAccountingCostCode() {
+		return $this->accountingCostCode;
+	}
+
+	/**
+	 * @param mixed $accountingCostCode
+	 * @return InvoiceLine
+	 */
+	public function setAccountingCostCode($accountingCostCode) {
+		$this->accountingCostCode = $accountingCostCode;
+		return $this;
+	}
+
 
     /**
      * The xmlSerialize method is called during xml writing.
@@ -176,5 +196,13 @@ class InvoiceLine implements XmlSerializable {
                 ]
             );
         }
+
+	    if ($this->accountingCostCode !== null) {
+		    $writer->write(
+			    [
+				    Schema::CAC . 'AccountingCostCode' => $this->accountingCostCode
+			    ]
+		    );
+	    }
     }
 }

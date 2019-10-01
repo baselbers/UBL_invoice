@@ -179,12 +179,16 @@ class InvoiceLine implements XmlSerializable {
                 ]
             ],
             [
-                'name' => Schema::CBC . 'LineExtensionAmount',
-                'value' => number_format($this->lineExtensionAmount, 2, '.', ''),
-                'attributes' => [
-                    'currencyID' => Generator::$currencyID
-                ]
+                'name' => Schema::CBC . 'AccountingCostCode',
+                'value' => $this->accountingCostCode
             ],
+	        [
+		        'name' => Schema::CBC . 'LineExtensionAmount',
+		        'value' => number_format($this->lineExtensionAmount, 2, '.', ''),
+		        'attributes' => [
+			        'currencyID' => Generator::$currencyID
+		        ]
+	        ],
             Schema::CAC . 'TaxTotal' => $this->taxTotal,
             Schema::CAC . 'Item' => $this->item,
         ]);
@@ -196,13 +200,5 @@ class InvoiceLine implements XmlSerializable {
                 ]
             );
         }
-
-	    if ($this->accountingCostCode !== null) {
-		    $writer->write(
-			    [
-				    Schema::CAC . 'AccountingCostCode' => $this->accountingCostCode
-			    ]
-		    );
-	    }
     }
 }
